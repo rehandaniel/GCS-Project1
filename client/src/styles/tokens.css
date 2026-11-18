@@ -1,0 +1,62 @@
+/* Semua warna, huruf, dan ukuran dasar ada di sini. Mengganti tampilan = mengganti angka di file ini.
+   Tema gelap adalah bawaan; tema terang menimpa warnanya lewat atribut data-theme="light" di <html> (lihat state/theme.js). */
+:root {
+  color-scheme: dark;
+
+  /* permukaan, dari paling belakang ke paling depan */
+  --page: #0c1117;
+  --panel: #141b23;
+  --tile: #1b242e;
+  --raised: #28333f;
+  --line: rgb(255 255 255 / 0.12);
+
+  /* teks */
+  --ink: #eef2f6;
+  --ink-2: #c0c9d3;
+  --muted: #8e9aa7;
+
+  /* status: selalu dipasangkan dengan ikon + teks, jangan pernah warna saja */
+  --ok: #4cd07d;
+  --warn: #f7b021;
+  --serious: #ff9a62;
+  --bad: #ff6b6b;
+  --tint: 16%; /* seberapa kuat warna status mewarnai latar badge dan peringatan */
+
+  /* yang sedang dipilih (menu aktif, mode aktif, tombol utama) memakai warna teks yang dibalik, bukan warna tambahan */
+  --accent: var(--ink);
+  --on-accent: #0c1117;
+
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 28px rgb(0 0 0 / 0.35);
+  --radius-s: 6px; /* tombol, kotak isian */
+  --radius-m: 10px; /* kartu, panel */
+  --radius-l: 14px; /* peta, halaman */
+  --font: 'B612', system-ui, -apple-system, 'Segoe UI', sans-serif; /* semua angka B612 selebar sama, jadi nilai yang berubah tidak bergeser */
+
+  /* Tidak ikut tema: lapisan di atas gambar peta, dan "kaca" instrumen yang selalu gelap seperti instrumen sungguhan. */
+  --map-track: #22c46b;
+  --map-mission: #f7b021;
+  --map-ink: #0f1419;
+  --glass: #0a0e13;
+  --glass-edge: #2c3743;
+  --glass-ink: #f2f5f8;
+  --glass-dim: #9ba7b3;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --page: #e8ebef;
+  --panel: #ffffff;
+  --tile: #f2f4f6;
+  --raised: #e1e5ea;
+  --line: rgb(15 20 25 / 0.14);
+  --ink: #0f1419;
+  --ink-2: #323b46;
+  --muted: #59636e;
+  --ok: #116d35;
+  --warn: #875800;
+  --serious: #ad3e0c;
+  --bad: #b3242a;
+  --tint: 12%;
+  --on-accent: #ffffff;
+  --shadow: 0 1px 2px rgb(15 20 25 / 0.12), 0 10px 28px rgb(15 20 25 / 0.14);
+}

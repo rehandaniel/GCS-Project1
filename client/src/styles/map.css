@@ -1,0 +1,73 @@
+/* Peta dan semua yang menempel di atasnya: tombol peta, menu Layers, penanda, garis, popup, dan alat gambar. */
+.map-panel {
+  --instruments-scale: 1;
+  --instruments-width: calc(472px * var(--instruments-scale)); /* dipakai dok perintah supaya tidak menabrak instrumen */
+  position: relative; flex: 1; min-width: 0; overflow: hidden;
+  border-radius: var(--radius-l); border: 1px solid var(--line); background: var(--panel);
+}
+.map-panel:fullscreen { border-radius: 0; border: 0; }
+.leaflet-container { width: 100%; height: 100%; background: var(--page); font: inherit; outline: none; }
+.leaflet-grab { cursor: grab; }
+.leaflet-dragging .leaflet-grab { cursor: grabbing; }
+
+/* kolom kiri di tampilan Fly: kartu kendaraan di atas, dok perintah di bawah. Kolomnya sendiri tembus klik, isinya tidak. */
+.left { position: absolute; z-index: 500; inset: 12px calc(var(--instruments-width) + 24px) 12px 12px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: 12px; pointer-events: none; }
+.left > * { pointer-events: auto; }
+
+.map-controls { position: absolute; z-index: 500; top: 12px; right: 12px; display: grid; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--panel); box-shadow: var(--shadow); }
+.map-controls li + li { border-top: 1px solid var(--line); }
+.map-controls button { border: 0; border-radius: 0; background: none; }
+.map-controls button[aria-pressed='true'] { background: var(--accent); }
+
+.layers { top: 88px; right: 72px; width: 280px; display: grid; gap: 12px; }
+.map-panel:fullscreen .layers { top: 12px; right: 60px; }
+.layers fieldset { display: grid; gap: 8px; }
+.layers label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.layers .row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.credits { position: absolute; z-index: 450; right: 12px; bottom: 5px; display: flex; gap: 10px; padding: 1px 7px; border-radius: 4px; background: color-mix(in srgb, var(--panel) 82%, transparent); color: var(--ink-2); font-size: 11px; }
+
+/* ---- lapisan di atas gambar peta: warnanya tetap di kedua tema, dengan tepi gelap supaya terbaca di peta terang maupun satelit ---- */
+.track { stroke: var(--map-track); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 1px rgb(0 0 0 / 0.85)); }
+.mission-line { stroke: var(--map-mission); stroke-width: 3; stroke-dasharray: 8 7; filter: drop-shadow(0 0 1px rgb(0 0 0 / 0.9)); }
+.survey-area { stroke: var(--map-mission); fill: var(--map-mission); fill-opacity: 0.14; }
+.replay-dot { fill: #fff; fill-opacity: 1; stroke: var(--map-track); stroke-width: 4; }
+
+/* penanda kendaraan: siluet putih bertepi gelap di dalam lingkaran penanda; diputar lewat JavaScript mengikuti arah */
+.veh { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: rgb(15 20 25 / 0.2); box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.85), 0 0 0 1.5px rgb(15 20 25 / 0.5); }
+.veh svg { overflow: visible; filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.55)); }
+.veh path { fill: #fff; stroke: var(--map-ink); stroke-width: 2.4; stroke-linejoin: round; paint-order: stroke; }
+.veh.stale { opacity: 0.8; }
+.veh.stale path { fill: var(--map-mission); }
+
+.wp, .home { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; background: #1b242e; color: #fff; font: 700 12px var(--font); box-shadow: 0 0 0 1px rgb(15 20 25 / 0.5), 0 2px 6px rgb(0 0 0 / 0.5); }
+.wp.current { background: var(--map-mission); color: var(--map-ink); }
+.wp.selected { box-shadow: 0 0 0 4px rgb(255 255 255 / 0.5), 0 0 0 5.5px rgb(15 20 25 / 0.55); }
+.wp.draft { background: rgb(15 20 25 / 0.35); border-style: dashed; }
+.home { background: #12833f; }
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--panel); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.leaflet-popup-content-wrapper { border-radius: var(--radius-m); }
+.leaflet-popup-content { margin: 14px; font: inherit; }
+.leaflet-popup-content form { display: grid; gap: 10px; }
+.leaflet-popup-content label { display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+.leaflet-container a.leaflet-popup-close-button { color: var(--muted); }
+
+/* ---- alat gambar Geoman (tampilan Plan), berdiri di samping panel misi dan dibuat senada dengan tombol peta ---- */
+.leaflet-top.leaflet-left { top: 2px; left: 370px; }
+.leaflet-pm-toolbar.leaflet-bar { border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--panel); box-shadow: var(--shadow); }
+.leaflet-pm-toolbar .button-container:first-child .leaflet-buttons-control-button { border-radius: 9px 9px 0 0; }
+.leaflet-pm-toolbar .button-container:last-child .leaflet-buttons-control-button { border-radius: 0 0 9px 9px; }
+.leaflet-pm-toolbar .leaflet-buttons-control-button { width: 38px; height: 38px; background: transparent; border-bottom: 0; }
+.leaflet-pm-toolbar .leaflet-buttons-control-button:hover { background: var(--raised); }
+.leaflet-pm-toolbar .control-icon { filter: invert(1); } /* ikon bawaan Geoman berwarna gelap */
+.leaflet-pm-toolbar .active > .leaflet-buttons-control-button { background: var(--accent); }
+.leaflet-pm-toolbar .active .control-icon { filter: none; }
+.leaflet-pm-toolbar .leaflet-pm-actions-container a.leaflet-pm-action { background: var(--raised); color: var(--ink); border-color: var(--line); }
+.leaflet-pm-toolbar .leaflet-pm-actions-container a.leaflet-pm-action:hover { background: var(--tile); }
+.leaflet-pm-toolbar .button-container.active .leaflet-pm-actions-container .leaflet-pm-action.action-cancel { border-radius: 0 var(--radius-s) var(--radius-s) 0; }
+:root[data-theme='light'] .leaflet-pm-toolbar .control-icon { filter: none; }
+:root[data-theme='light'] .leaflet-pm-toolbar .active .control-icon { filter: invert(1); }
+
+/* layar sempit atau pendek: instrumen diperkecil supaya peta tetap lega */
+@media (max-width: 1180px), (max-height: 660px) { .map-panel { --instruments-scale: 0.82; } }

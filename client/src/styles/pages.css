@@ -1,0 +1,56 @@
+/* Halaman tanpa peta utama: Logs, putar ulang penerbangan, dan Parameters. */
+.page { flex: 1; min-width: 0; padding: 18px 20px; overflow: auto; border-radius: var(--radius-l); background: var(--panel); border: 1px solid var(--line); }
+.page > header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.page > header h2 { margin-right: auto; font-size: 17px; }
+.page .empty { padding: 24px 0; color: var(--muted); }
+
+/* ---- Logs ---- */
+.logs table { width: 100%; border-collapse: collapse; }
+.logs th, .logs td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--line); }
+.logs th { color: var(--muted); font-weight: 400; font-size: 12px; }
+.logs td:nth-child(2), .logs td:nth-child(3) { font: 13px var(--font); white-space: nowrap; }
+.logs .row-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 6px; }
+.logs .row-actions button, .logs .row-actions .button { padding: 6px 10px; }
+.logs .alert { margin-bottom: 12px; }
+
+/* ---- putar ulang penerbangan ---- */
+.review { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+.review > header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.review > header h2 { font-size: 16px; overflow-wrap: anywhere; }
+.review .facts { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+.review .map-panel { min-height: 260px; }
+.transport { display: flex; flex: none; align-items: center; gap: 12px; padding: 6px 12px 6px 6px; border-radius: var(--radius-m); background: var(--panel); border: 1px solid var(--line); }
+.transport input[type='range'] { flex: 1; padding: 0; border: 0; background: none; accent-color: var(--accent); }
+.transport time { color: var(--ink-2); font: 13px var(--font); white-space: nowrap; }
+
+/* ---- Parameters ---- */
+.params > header { margin-bottom: 8px; }
+.tabs { display: flex; gap: 2px; padding: 2px; margin-right: auto; border-radius: var(--radius-s); background: var(--tile); }
+.tabs button { padding: 6px 14px; border-color: transparent; background: none; color: var(--ink-2); }
+.tabs button:hover:not([aria-pressed='true']) { background: var(--raised); color: var(--ink); }
+.tabs button[aria-pressed='true'] { background: var(--accent); color: var(--on-accent); }
+.search { display: flex; align-items: center; gap: 8px; width: min(380px, 100%); padding: 0 10px; border: 1px solid var(--line); border-radius: var(--radius-s); background: var(--tile); color: var(--muted); }
+.search:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.search input { flex: 1; padding: 7px 0; border: 0; background: none; color: var(--ink); outline: none; }
+.params > .muted { margin-bottom: 14px; font-size: 13px; }
+
+.live-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; align-items: start; }
+.live-grid article, .param-groups article { border: 1px solid var(--line); border-radius: var(--radius-m); overflow: hidden; }
+.live-grid h3, .param-groups h3 { padding: 8px 12px; background: var(--tile); color: var(--ink-2); }
+.param-groups h3 small { margin-left: 4px; font-weight: 400; }
+.live-grid dl div, .param-groups dl div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 6px 12px; border-top: 1px solid var(--line); break-inside: avoid; }
+.live-grid dt { color: var(--ink-2); }
+.live-grid dd, .param-groups dd { font: 700 13.5px var(--font); text-align: right; overflow-wrap: anywhere; }
+.live-grid dd small { margin-left: 4px; font: 400 11px var(--font); }
+.param-groups dt { font: 12.5px var(--font); color: var(--ink-2); }
+
+.toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.toolbar .muted { margin-right: auto; }
+.param-groups { columns: 300px; column-gap: 12px; }
+.param-groups article { margin-bottom: 12px; }
+.param-groups h3 { break-after: avoid; }
+
+.notice { display: grid; gap: 10px; justify-items: start; max-width: 560px; padding: 20px; border: 1px dashed var(--line); border-radius: var(--radius-m); }
+.notice h3 { font-size: 15px; }
+.notice .muted { font-size: 13px; }
+.notice progress:indeterminate { height: 6px; }

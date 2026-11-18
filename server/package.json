@@ -1,0 +1,19 @@
+{
+    "name": "@gcs_kelompok_2/server",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "node --disable-warning=ExperimentalWarning --watch src/index.js",
+        "start": "node --disable-warning=ExperimentalWarning src/index.js",
+        "test": "node --disable-warning=ExperimentalWarning --test"
+    },
+
+    "dependencies": {
+        "express": "5.3.0",
+        "redis": "6.3.1",
+        "socket.io": "4.8.4"
+    },
+    "devDependencies": {
+        "socket.io-client": "4.8.4"
+    }
+}

@@ -1,0 +1,66 @@
+/* Tampilan Fly: kartu kendaraan, dok perintah, instrumen di kanan bawah, dan bilah data di bawah peta. */
+
+.vehicle { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; width: 300px; min-height: 0; overflow-y: auto; }
+.vehicle > header { display: flex; align-items: center; gap: 10px; }
+.vehicle > header div { margin-right: auto; min-width: 0; }
+.vehicle > header p { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vehicle .avatar { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: var(--radius-s); background: var(--raised); }
+
+.route { display: grid; gap: 5px; padding: 10px; border-radius: var(--radius-s); background: var(--tile); }
+.route p { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; color: var(--ink-2); font-size: 13px; }
+.route strong { color: var(--ink); font: 700 16px var(--font); }
+.route strong small { font-weight: 400; }
+
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tile { display: grid; gap: 4px; justify-items: center; padding: 10px 8px; border-radius: var(--radius-s); background: var(--tile); }
+.tile header { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 21px; gap: 4px; color: var(--ink-2); font-size: 12px; }
+.tile svg { width: 100%; max-width: 112px; height: auto; overflow: visible; }
+.tile strong { font: 700 18px/1 var(--font); }
+.tile strong small { font-weight: 400; }
+.tile .needle { transition: transform 0.3s; }
+.tile .liquid { animation: wave 3s linear infinite; }
+@keyframes wave { to { transform: translateX(-50px); } }
+
+.dock { display: grid; gap: 8px; max-width: 100%; padding: 8px; }
+.modes { display: flex; align-items: center; gap: 8px; }
+.modes ul { display: flex; flex-wrap: wrap; gap: 2px; padding: 2px; border-radius: var(--radius-s); background: var(--tile); }
+.modes li button { padding: 5px 10px; border-color: transparent; background: none; color: var(--ink-2); font-size: 12px; }
+.modes li button:hover:not(:disabled, [aria-pressed='true']) { background: var(--raised); color: var(--ink); }
+.modes li button[aria-pressed='true'] { background: var(--accent); color: var(--on-accent); }
+.modes select { padding: 5px 8px; font-size: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.actions li { display: flex; align-items: center; gap: 6px; }
+.actions label { display: flex; align-items: center; gap: 5px; margin-right: 4px; color: var(--muted); font-size: 12px; }
+.actions input { width: 54px; }
+
+/* ---- instrumen: selalu di kanan bawah peta, berkaca gelap di kedua tema ---- */
+.instruments {
+  position: absolute; z-index: 500; right: 12px; bottom: 28px; display: flex; gap: 8px; padding: 8px; zoom: var(--instruments-scale);
+  border-radius: var(--radius-l); background: var(--glass); border: 1px solid var(--glass-edge); box-shadow: var(--shadow); color: var(--glass-ink);
+}
+.compass { display: grid; justify-items: center; align-content: space-between; width: 166px; }
+.compass svg { width: 160px; height: 160px; }
+.compass .face { fill: #121820; stroke: var(--glass-edge); stroke-width: 1.5; }
+.compass .dial { transform-origin: 60px 60px; } /* sudut putarnya diisi JavaScript tiap frame (lihat Instruments.jsx) */
+.compass line { stroke: var(--glass-dim); stroke-width: 1.2; }
+.compass text { fill: var(--glass-ink); font: 700 11px var(--font); text-anchor: middle; }
+.compass text.minor { fill: var(--glass-dim); font-weight: 400; font-size: 8.5px; }
+.compass text.north { fill: #ff6b6b; }
+.compass .pointer { fill: var(--map-mission); }
+.compass .craft { fill: var(--glass-ink); }
+.compass figcaption { font: 700 15px/1.5 var(--font); }
+.compass figcaption span { color: var(--glass-dim); font-weight: 400; }
+.attitude { display: block; width: 280px; height: 190px; border-radius: var(--radius-s); }
+
+/* ---- bilah data: dipakai langsung di Fly dan saat memutar ulang log ---- */
+.databar { display: flex; flex: none; align-items: stretch; min-height: 48px; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--panel); }
+.databar article { display: flex; align-items: center; gap: 14px; padding: 6px 16px; border-left: 1px solid var(--line); }
+.databar article:first-child { border-left: 0; }
+.databar h3 { color: var(--muted); font-size: 12px; }
+.databar dl { display: flex; gap: 16px; }
+.databar dt { color: var(--muted); font-size: 11px; line-height: 1.25; white-space: nowrap; }
+.databar dd { font: 700 14px/1.3 var(--font); white-space: nowrap; }
+.databar dd small { margin-left: 3px; font: 400 11px var(--font); }
+.databar .wide dd { min-width: 10.5ch; } /* lebar tetap supaya angka tidak bergeser setiap 0,2 detik */
+.databar[data-stale] dl { opacity: 0.55; }
+.databar > .badge { align-self: center; margin: 0 12px 0 auto; }

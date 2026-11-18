@@ -1,0 +1,25 @@
+{
+    "name": "@gcs_kelompok_2/client",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "test": "node --test"
+    },
+
+    "dependencies": {
+        "@geoman-io/leaflet-geoman-free": "2.20.6",
+        "leaflet": "1.9.4",
+        "react": "19.3.1",
+        "react-dom": "19.3.1",
+        "react-leaflet": "5.0.0",
+        "socket.io-client": "4.8.4"
+    },
+
+    "devDependencies": {
+        "@vitejs/plugin-react": "6.2.1",
+        "vite": "8.3.6"
+    }
+}

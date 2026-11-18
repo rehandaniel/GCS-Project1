@@ -1,0 +1,53 @@
+/* Kerangka: menu kiri, bilah status di atas, area halaman, pesan, dan pemberitahuan. */
+#root { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; height: 100dvh; padding: 12px; }
+
+.rail {
+  display: flex; flex-direction: column; gap: 4px; width: 68px; padding: 8px 6px;
+  border-radius: var(--radius-l); background: var(--panel); border: 1px solid var(--line);
+}
+.rail .logo { padding: 8px 0 12px; text-align: center; font-weight: 700; font-size: 13px; letter-spacing: 0.06em; }
+.rail ul { display: grid; gap: 4px; }
+.rail button { flex-direction: column; gap: 4px; width: 100%; padding: 9px 2px 7px; border-color: transparent; background: none; color: var(--muted); font-size: 11px; }
+.rail button:hover:not([aria-current='true']) { background: var(--tile); color: var(--ink); }
+.rail button[aria-current='true'] { background: var(--accent); color: var(--on-accent); font-weight: 700; }
+.rail > button { margin-top: auto; }
+
+.workspace { display: flex; flex-direction: column; gap: 12px; min-width: 0; min-height: 0; }
+main { flex: 1; min-height: 0; display: flex; }
+
+.strip { display: flex; align-items: stretch; gap: 12px; height: 52px; flex: none; }
+.strip h1 { align-self: center; padding: 0 4px; white-space: nowrap; }
+.status { display: flex; flex: 1; min-width: 0; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--panel); }
+.status li { display: flex; align-items: center; gap: 9px; padding: 0 14px; border-left: 1px solid var(--line); white-space: nowrap; transition: background-color 0.2s; }
+.status li:first-child { border-left: 0; }
+.status li.bad { background: color-mix(in srgb, var(--bad) var(--tint), transparent); }
+.status .icon { flex: none; color: var(--tone, var(--muted)); transition: color 0.2s; }
+.status small { display: block; line-height: 1.2; }
+.status strong { display: block; font-size: 14px; line-height: 1.3; }
+
+.strip .bell { position: relative; width: 52px; height: auto; border-radius: var(--radius-m); background: var(--panel); }
+.strip .bell em { position: absolute; top: 5px; right: 5px; min-width: 18px; padding: 0 4px; border-radius: 9px; background: var(--bad); color: var(--on-accent); font: 700 11px/18px var(--font); text-align: center; }
+.link-chip { gap: 10px; padding: 0 10px 0 8px; border-radius: var(--radius-m); background: var(--panel); text-align: left; }
+.link-chip .avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--radius-s); background: var(--raised); }
+.link-chip strong, .link-chip small { display: block; max-width: 170px; overflow: hidden; text-overflow: ellipsis; line-height: 1.25; }
+
+.messages { top: 72px; right: 12px; width: min(400px, calc(100vw - 24px)); max-height: 60vh; }
+.messages h2 { margin-bottom: 6px; }
+.messages li { display: flex; gap: 8px; padding: 8px 0; border-top: 1px solid var(--line); }
+.messages li span { flex: 1; overflow-wrap: anywhere; }
+.messages li time { color: var(--muted); font: 12px var(--font); white-space: nowrap; }
+.messages li .icon { flex: none; margin-top: 2px; color: var(--tone, var(--muted)); }
+
+/* pemberitahuan: di tengah atas peta, tempat yang tidak ditempati panel apa pun */
+.toasts { position: fixed; z-index: 2000; top: 88px; left: calc(50% + 40px); translate: -50% 0; display: grid; gap: 8px; width: min(380px, calc(100vw - 48px)); pointer-events: none; }
+.toasts p { display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: var(--radius-m); background: var(--panel); border: 1px solid var(--line); box-shadow: var(--shadow); animation: toast-in 0.18s ease-out; }
+.toasts p.bad, .toasts p.warn { border-color: color-mix(in srgb, var(--tone) 60%, transparent); }
+.toasts .icon { flex: none; margin-top: 1px; color: var(--tone, var(--ink-2)); }
+@keyframes toast-in { from { opacity: 0; translate: 0 -8px; } }
+
+/* layar sempit: judul halaman disembunyikan (menu kiri sudah menunjukkan halaman yang aktif) supaya bilah status muat */
+@media (max-width: 1240px) { .strip h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } }
+@media (max-width: 1100px) {
+  .status li { padding: 0 10px; }
+  .link-chip strong, .link-chip small { max-width: 120px; }
+}
